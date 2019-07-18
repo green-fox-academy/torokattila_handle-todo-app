@@ -1,28 +1,24 @@
-import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 
 public class RemoveTask {
 
-    public static void removeTask(int index) throws IOException {
-        File inputFile = new File("list.txt");
-        File tempFile = new File("templist.txt");
-
-        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-
-        int indexRemove = index;
-        String currentLine;
-        int count = 0;
-
-        while((currentLine = reader.readLine()) != null) {
-            count++;
-            if (count == indexRemove) {
-                continue;
+    public static void removeTask(String number) {
+        Path filePath = Paths.get("tasks.txt");
+        try {
+            List<String> todos = Files.readAllLines(filePath);
+            if (todos.size() > Integer.parseInt(number) - 1) {
+                todos.remove(Integer.parseInt(number) - 1);
+                Files.write(filePath, todos);
             }
-            writer.write(currentLine + "\n");
+            else {
+                System.out.println("Unable to remove: index is out of bound");
+            }
         }
-        writer.close();
-        reader.close();
-        inputFile.delete();
-        tempFile.renameTo(inputFile);
+        catch (Exception e) {
+            System.out.println("Unable to remove: index is not a number");
+        }
     }
 }

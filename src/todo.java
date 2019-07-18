@@ -15,7 +15,11 @@ public class todo {
                 System.out.println("Unable to add: no task provided");
             }
         } else if (args[0].equals("-r")) {
-            RemoveTask.removeTask(Integer.parseInt(args[1]));
+            if (args.length == 2) {
+                RemoveTask.removeTask(args[1]);
+            } else {
+                System.out.println("Unable to remove, no index provided!");
+            }
         }
 
     }
