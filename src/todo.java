@@ -18,7 +18,11 @@ public class todo {
         }
 
         if (args[0].equals("-a")) {
-            addNewLineText(args[1]);
+            if (args.length == 2) {
+                addNewLineText(args[1]);
+            } else {
+                System.out.println("Unable to add: no task provided");
+            }
         }
 
     }
